@@ -7,5 +7,7 @@ import java.util.Map;
  */
 public class Controller {
     private Map<String,String> oneToOneRelation;
+    Thread thread = new Thread(new ReadThread());
+    thread.start();
 
 }

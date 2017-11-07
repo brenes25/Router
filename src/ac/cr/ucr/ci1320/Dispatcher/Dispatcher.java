@@ -1,4 +1,6 @@
-package ac.cr.ucr.ci1320;
+package ac.cr.ucr.ci1320.Dispatcher;
+
+import ac.cr.ucr.ci1320.IpData;
 
 import java.util.Map;
 
