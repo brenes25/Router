@@ -1,4 +1,4 @@
-package com.company;
+package ac.cr.ucr.ci1320;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
