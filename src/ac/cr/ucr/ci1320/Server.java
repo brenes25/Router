@@ -25,13 +25,14 @@ public class Server extends Connection {
         try {
             while(true) {
                 System.out.println("\nServidor  esperando...");
-                cs = ss.accept();
+                this.cs = this.ss.accept();
                 System.out.println("Cliente conectado en el servidor ");
-                outClient = new DataOutputStream(cs.getOutputStream());
-                BufferedReader input = new BufferedReader(new InputStreamReader(cs.getInputStream()));
-                while ((serverMessage = input.readLine()) != null) {
+                this.outClient = new DataOutputStream(this.cs.getOutputStream());
+                
+                BufferedReader input = new BufferedReader(new InputStreamReader(this.cs.getInputStream()));
+                while ((this.serverMessage = input.readLine()) != null) {
                     //System.out.println(serverMessage);
-                    newMessage = newMessage + serverMessage + "\n";
+                    newMessage = newMessage + this.serverMessage + "\n";
                 }
                 System.out.println(newMessage);
                 this.client = new Client("client",5555,"192.168.100.15",this.dispatcher,this.pair);
@@ -43,8 +44,8 @@ public class Server extends Connection {
     }
 
     public String parsePabloArray(char[] c){
-        String msj = "";
-        msj = msj + String.valueOf((int) c[0])+"."+String.valueOf((int) c[1])+"."+String.valueOf((int) c[2])+"."+String.valueOf((int) c[3])+"\n"
+        String msj;
+        msj = String.valueOf((int) c[0])+"."+String.valueOf((int) c[1])+"."+String.valueOf((int) c[2])+"."+String.valueOf((int) c[3])+"\n"
         + String.valueOf((int) c[4])+"."+String.valueOf((int) c[5])+"."+String.valueOf((int) c[6])+"."+String.valueOf((int) c[7])+"\n"
         + String.valueOf((int) c[8])+"\n" //action
         + String.valueOf((int) c[9])+"."+String.valueOf((int) c[10])+"."+String.valueOf((int) c[11])+"."+String.valueOf((int) c[12])+"\n"

@@ -17,7 +17,7 @@ public class IpData {
     }
 
     public String getRealIp() {
-        return realIp;
+        return this.realIp;
     }
 
     public void setRealIp(String realIp) {
@@ -25,7 +25,7 @@ public class IpData {
     }
 
     public String getDestinyIp() {
-        return destinyIp;
+        return this.destinyIp;
     }
 
     public void setDestinyIp(String destinyIp) {
@@ -33,7 +33,7 @@ public class IpData {
     }
 
     public String getPath() {
-        return path;
+        return this.path;
     }
 
     public void setPath(String path) {
@@ -41,7 +41,7 @@ public class IpData {
     }
 
     public int getDistance() {
-        return distance;
+        return this.distance;
     }
 
     public void setDistance(int distance) {

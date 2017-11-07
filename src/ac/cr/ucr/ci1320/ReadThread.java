@@ -9,7 +9,7 @@ public class ReadThread implements Runnable{
 
     @Override
     public void run(){
-        server.startServer();
+        this.server.startServer();
     }
 
 }

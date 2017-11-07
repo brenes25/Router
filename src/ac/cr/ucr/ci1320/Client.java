@@ -30,7 +30,7 @@ public class Client extends Connection {
             switch (action){
                 case 1:
                     IpData ipData = dispatcher.getData(arrayMessage[1]);
-                    if(ipData != null) {
+                    if(ipData != null) { //si lo conozco
                         answerMessage = pair.getKey() + "\n" + arrayMessage[0] + "\n" +
                                 '4' + "\n" + "" + "\n" + arrayMessage[4] + "\n" + arrayMessage[5];
                     } else { //soy yo
@@ -40,11 +40,11 @@ public class Client extends Connection {
                     break;
                 case 2:
                     IpData ipData2 = dispatcher.getData(arrayMessage[1]);
-                    if(ipData2 != null) {
+                    if(ipData2 != null) { //si se la ruta
                         answerMessage = pair.getKey() + "\n" + arrayMessage[0] + "\n" +
                                 '4' + "\n" + "" + "\n" + arrayMessage[4] + "\n" + arrayMessage[5];
                     }
-                    else{
+                    else{ //mensaje de error, no conozco la ruta al mae
                         answerMessage = pair.getKey() + "\n" + arrayMessage[0] + "\n" +
                                 '5' + "\n" + "" + "\n" + arrayMessage[4] + "\n" + arrayMessage[5];
                     }
@@ -55,9 +55,13 @@ public class Client extends Connection {
 
                     break;
             }
-            outServer = new DataOutputStream(cs.getOutputStream());
-            outServer.writeUTF(answerMessage);
-            cs.close();
+            /*posibles soluciones:
+            1. new String(bla bla)
+
+             */
+            this.outServer = new DataOutputStream(this.cs.getOutputStream());
+            this.outServer.writeUTF(answerMessage);
+            this.cs.close();
         }
         catch (Exception e){
             System.out.println(e.getMessage());

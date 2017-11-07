@@ -29,16 +29,7 @@ public class Controller {
     }
 
     public void startController() throws IOException {
-        //aca crea el hilo de escuchar
-        //hace el join
         Thread thread = new Thread(new ReadThread(new Server(5555, "localhost",dispatcher, new Pair<String,String>(this.myIpAddress,this.myPhysicalAddress))));
         thread.start();
-
     }
-
-    private void write(String[] message){
-
-    }
-
-
 }
