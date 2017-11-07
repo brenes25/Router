@@ -1,5 +1,8 @@
 package ac.cr.ucr.ci1320;
 
+import ac.cr.ucr.ci1320.Dispatcher.Dispatcher;
+import javafx.util.Pair;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +15,7 @@ public class Controller {
     private Map<String,String> oneToOneRelation;
     private String myIpAddress;
     private String myPhysicalAddress;
+    private Dispatcher dispatcher;
 
     public Controller(){
         this.oneToOneRelation = new HashMap<>();
@@ -21,12 +25,13 @@ public class Controller {
         //el propio se tiene como atributo
         this.myIpAddress = "165.8.25.6";
         this.myPhysicalAddress = "CRR4";
+        this.dispatcher = new Dispatcher();
     }
 
     public void startController() throws IOException {
         //aca crea el hilo de escuchar
         //hace el join
-        Thread thread = new Thread( new ReadThread(new Server(5555, "localhost")));
+        Thread thread = new Thread(new ReadThread(new Server(5555, "localhost",dispatcher, new Pair<String,String>(this.myIpAddress,this.myPhysicalAddress))));
         thread.start();
 
     }

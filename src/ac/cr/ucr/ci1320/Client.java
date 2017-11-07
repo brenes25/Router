@@ -1,53 +1,62 @@
 package ac.cr.ucr.ci1320;
 
+import ac.cr.ucr.ci1320.Dispatcher.Dispatcher;
+import javafx.util.Pair;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
 
 
 public class Client extends Connection {
-    public  Client() throws IOException {
-        super("client", 5000, "192.168.100.16");
+
+    private Dispatcher dispatcher;
+    private Pair<String,String> pair;
+
+    public  Client(String type,int port,String ip,Dispatcher dispatcher,Pair<String,String> pair) throws IOException {
+        super(type,port,ip);
+        this.dispatcher = dispatcher;
+        this.pair = pair;
     }
 
-    public void startClient(){
+    boolean isLocal(){
+        return true;
+    }
+
+    public void startClient(String message){
         try {
+            String[] arrayMessage = message.split("\n");
+            int action = Integer.parseInt(arrayMessage[2]);
+            String answerMessage = "";
+            switch (action){
+                case 1:
+                    IpData ipData = dispatcher.getData(arrayMessage[1]);
+                    if(ipData != null) {
+                        answerMessage = pair.getKey() + "\n" + arrayMessage[0] + "\n" +
+                                '4' + "\n" + "" + "\n" + arrayMessage[4] + "\n" + arrayMessage[5];
+                    } else { //soy yo
+                        answerMessage = pair.getKey() + "\n" + arrayMessage[0] + "\n" +
+                                '3' + "\n" + "" + "\n" + arrayMessage[4] + "\n" + arrayMessage[5];
+                    }
+                    break;
+                case 2:
+                    IpData ipData2 = dispatcher.getData(arrayMessage[1]);
+                    if(ipData2 != null) {
+                        answerMessage = pair.getKey() + "\n" + arrayMessage[0] + "\n" +
+                                '4' + "\n" + "" + "\n" + arrayMessage[4] + "\n" + arrayMessage[5];
+                    }
+                    else{
+                        answerMessage = pair.getKey() + "\n" + arrayMessage[0] + "\n" +
+                                '5' + "\n" + "" + "\n" + arrayMessage[4] + "\n" + arrayMessage[5];
+                    }
 
-            outServer = new DataOutputStream(cs.getOutputStream());
-            char[] c = new char[1000];
-            c[0] = 165;
-            c[1] = 8;
-            c[2] = 5;
-            c[3] = 6;
+                    break;
+                default: //caso 0
 
-            c[4] = 165;
-            c[5] = 8;
-            c[6] = 5;
-            c[7] = 6;
 
-            c[8] = 0;
-
-            c[9] = 165;
-            c[10] = 7;
-            c[11] = 3;
-            c[12] = 0;
-
-            c[13] = 1;
-
-            c[14] = 'h';
-
-            String msj = "";
-            msj = msj + String.valueOf((int) c[0])+"."+String.valueOf((int) c[1])+"."+String.valueOf((int) c[2])+"."+String.valueOf((int) c[3])+"\n"
-                    + String.valueOf((int) c[4])+"."+String.valueOf((int) c[5])+"."+String.valueOf((int) c[6])+"."+String.valueOf((int) c[7])+"\n"
-                    + String.valueOf((int) c[8])+"\n" //action
-                    + String.valueOf((int) c[9])+"."+String.valueOf((int) c[10])+"."+String.valueOf((int) c[11])+"."+String.valueOf((int) c[12])+"\n"
-                    + String.valueOf((int) c[13])+"\n"; //msj size
-            for(int i=14;i<+14+c[13];i++){
-                msj = msj + c[i];
+                    break;
             }
-            msj = msj + "\n";
-
-            outServer.writeUTF(msj);
-
+            outServer = new DataOutputStream(cs.getOutputStream());
+            outServer.writeUTF(answerMessage);
             cs.close();
         }
         catch (Exception e){

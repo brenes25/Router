@@ -2,6 +2,7 @@ package ac.cr.ucr.ci1320.Dispatcher;
 
 import ac.cr.ucr.ci1320.IpData;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -11,6 +12,7 @@ public class Dispatcher {
     private Map<String,IpData> ipTable;
 
     public Dispatcher(){
+        this.ipTable = new HashMap<>();
         this.ipTable.put("12.0.0.0",new IpData("192.168.100.16", "12.0.0.8", "12.0.0.7", 0));//banderas
         this.ipTable.put("200.5.0.0",new IpData("192.168.100.16", "200.5.0.2", "12.0.0.7",1));//paletas
         this.ipTable.put("140.90.0.0",new IpData("192.168.100.16", "12.0.0.8", "12.0.0.7", 2));//bolinchas

@@ -1,6 +1,8 @@
 package ac.cr.ucr.ci1320;
 
 import ac.cr.ucr.ci1320.Connection;
+import ac.cr.ucr.ci1320.Dispatcher.Dispatcher;
+import javafx.util.Pair;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -8,12 +10,18 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Server extends Connection {
+    private Client client;
+    private Dispatcher dispatcher;
+    private Pair<String,String> pair;
 
-    public Server(int PORT, String HOST) throws IOException {
+    public Server(int PORT, String HOST, Dispatcher dispatcher,Pair<String,String> pair) throws IOException {
         super("server", PORT, HOST);
+        this.dispatcher = dispatcher;
+        this.pair = pair;
     }
 
     public void startServer() {
+        String newMessage = "";
         try {
             while(true) {
                 System.out.println("\nServidor  esperando...");
@@ -22,8 +30,12 @@ public class Server extends Connection {
                 outClient = new DataOutputStream(cs.getOutputStream());
                 BufferedReader input = new BufferedReader(new InputStreamReader(cs.getInputStream()));
                 while ((serverMessage = input.readLine()) != null) {
-                    System.out.println(serverMessage);
+                    //System.out.println(serverMessage);
+                    newMessage = newMessage + serverMessage + "\n";
                 }
+                System.out.println(newMessage);
+                this.client = new Client("client",5555,"192.168.100.15",this.dispatcher,this.pair);
+                this.client.startClient(newMessage);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
