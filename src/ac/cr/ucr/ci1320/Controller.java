@@ -29,7 +29,7 @@ public class Controller {
     }
 
     public void startController() throws IOException {
-        Thread thread = new Thread(new ReadThread(new Server(5555, "localhost",dispatcher, new Pair<String,String>(this.myIpAddress,this.myPhysicalAddress), this.oneToOneRelation)));
+        Thread thread = new Thread(new ReadThread(new Server(dispatcher, new Pair<String,String>(this.myIpAddress,this.myPhysicalAddress), this.oneToOneRelation)));
         thread.start();
     }
 }

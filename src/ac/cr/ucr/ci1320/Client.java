@@ -14,8 +14,7 @@ public class Client extends Connection {
     private Pair<String,String> pair;
     private Map<String, String> relation;
 
-    public  Client(int port,String ip,Dispatcher dispatcher,Pair<String,String> pair, Map<String, String> relation) throws IOException {
-        super("client",port,ip);
+    public  Client(Dispatcher dispatcher,Pair<String,String> pair, Map<String, String> relation) throws IOException {
         this.dispatcher = dispatcher;
         this.pair = pair;
         this.relation = relation;
@@ -78,7 +77,8 @@ public class Client extends Connection {
                     }
                     break;
             }
-
+            IpData ipData = this.dispatcher.getData(arrayMessage[1]);
+            super.createSocket("client",ipData.getPort(),ipData.getRealIp());
             this.outServer = new DataOutputStream(this.cs.getOutputStream());
             this.outServer.writeUTF(answerMessage);
             this.cs.close();

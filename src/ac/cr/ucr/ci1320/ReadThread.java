@@ -1,5 +1,8 @@
 package ac.cr.ucr.ci1320;
 
+import java.io.IOException;
+import java.security.spec.ECField;
+
 public class ReadThread implements Runnable{
 
     private Server server;
@@ -9,7 +12,10 @@ public class ReadThread implements Runnable{
 
     @Override
     public void run(){
-        this.server.startServer();
+        try {
+            this.server.startServer();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
-
 }

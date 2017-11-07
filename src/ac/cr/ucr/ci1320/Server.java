@@ -2,6 +2,7 @@ package ac.cr.ucr.ci1320;
 
 import ac.cr.ucr.ci1320.Connection;
 import ac.cr.ucr.ci1320.Dispatcher.Dispatcher;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.util.Pair;
 
 import java.io.*;
@@ -14,15 +15,14 @@ public class Server extends Connection {
     private Pair<String,String> pair;
     private Map<String,String> relation;
 
-    public Server(int PORT, String HOST, Dispatcher dispatcher,Pair<String,String> pair, Map<String,String> relation) throws IOException {
-        super("server", PORT, HOST);
+    public Server(Dispatcher dispatcher,Pair<String,String> pair, Map<String,String> relation) throws IOException {
         this.dispatcher = dispatcher;
         this.pair = pair;
         this.relation = relation;
-
     }
 
-    public void startServer() {
+    public void startServer() throws IOException{
+        super.createSocket("server", 5555, "localhost");
         try {
             while(true) {
                 System.out.println("\nServidor  esperando...");
@@ -31,7 +31,7 @@ public class Server extends Connection {
                 this.outClient = new DataInputStream(this.cs.getInputStream());
                 String newMessage = this.outClient.readUTF();
                 System.out.println(newMessage);
-                this.client = new Client(5555,"192.168.100.15",this.dispatcher,this.pair, this.relation);
+                this.client = new Client(this.dispatcher,this.pair, this.relation);
                 this.client.startClient(newMessage);
             }
         } catch (Exception e) {

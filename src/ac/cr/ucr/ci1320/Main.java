@@ -8,7 +8,7 @@ public class Main {
        //controller.startController();
        // Server server = new Server(5555,"localhost", null, null);
         //server.startServer();
-        Client client = new Client("client", 5555, "192.168.0.11", null, null);
+        Client client = new Client(null, null, null);
         client.startClient2();
 
     }

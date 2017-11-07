@@ -6,45 +6,33 @@ package ac.cr.ucr.ci1320;
 public class IpData {
     private String realIp;
     private String destinyIp;
-    private String path;
+    private String fakePath;
     private int distance;
+    private int port;
 
-    public IpData(String newRealIp, String newDestinyIp, String newPath, int newDistance){
-        this.realIp = newRealIp;
-        this.destinyIp = newDestinyIp;
-        this.path = newPath;
-        this.distance = newDistance;
+    public IpData(String realIp, String destinyIp, String fakePath, int distance,int port){
+        this.realIp = realIp;
+        this.destinyIp = destinyIp;
+        this.fakePath = fakePath;
+        this.distance = distance;
+        this.port = port;
     }
 
     public String getRealIp() {
         return this.realIp;
     }
 
-    public void setRealIp(String realIp) {
-        this.realIp = realIp;
-    }
-
     public String getDestinyIp() {
         return this.destinyIp;
     }
 
-    public void setDestinyIp(String destinyIp) {
-        this.destinyIp = destinyIp;
-    }
-
-    public String getPath() {
-        return this.path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
+    public String getFakePath() {
+        return this.fakePath;
     }
 
     public int getDistance() {
         return this.distance;
     }
 
-    public void setDistance(int distance) {
-        this.distance = distance;
-    }
+    public int getPort(){ return this.port; }
 }

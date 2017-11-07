@@ -16,7 +16,9 @@ public class Connection {
     protected DataOutputStream outServer;
     protected DataInputStream outClient;
 
-    public Connection(String tipo, int PORT, String HOST) throws IOException{
+    public Connection(){}
+
+    public void createSocket(String tipo, int PORT, String HOST) throws IOException{
         this.PORT = PORT;
         this.HOST = HOST;
         if (tipo.equalsIgnoreCase("server")) {
