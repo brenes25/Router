@@ -4,9 +4,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-/**
- * Created by Renato on 21/10/2017.
- */
+
 public class Client extends Connection {
     public  Client() throws IOException {
         super("client", 1234, "localhost");

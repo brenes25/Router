@@ -5,10 +5,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-/**
- * Created by Renato 21/10/2017.
- */
-
 public class Server extends Connection {
 
     public Server(int PORT, String HOST) throws IOException {

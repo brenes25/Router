@@ -5,9 +5,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-/**
- * Created by Renato on 21/10/2017.
- */
+
 public class Connection {
     private int PORT;
     private String HOST;
