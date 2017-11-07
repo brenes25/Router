@@ -67,4 +67,19 @@ public class Client extends Connection {
             System.out.println(e.getMessage());
         }
     }
+
+    public void testClient(){
+        try {
+            outServer = new DataOutputStream(cs.getOutputStream());
+            for (int i = 0; i < 2; i++) {
+                outServer.writeUTF("Este es el número"+(i+1)+"\nHOLA1\nHOLA2");
+            }
+            cs.close();
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+
 }

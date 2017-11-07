@@ -4,10 +4,7 @@ import ac.cr.ucr.ci1320.Connection;
 import ac.cr.ucr.ci1320.Dispatcher.Dispatcher;
 import javafx.util.Pair;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class Server extends Connection {
     private Client client;
@@ -21,19 +18,13 @@ public class Server extends Connection {
     }
 
     public void startServer() {
-        String newMessage = "";
         try {
             while(true) {
                 System.out.println("\nServidor  esperando...");
                 this.cs = this.ss.accept();
                 System.out.println("Cliente conectado en el servidor ");
-                this.outClient = new DataOutputStream(this.cs.getOutputStream());
-                
-                BufferedReader input = new BufferedReader(new InputStreamReader(this.cs.getInputStream()));
-                while ((this.serverMessage = input.readLine()) != null) {
-                    //System.out.println(serverMessage);
-                    newMessage = newMessage + this.serverMessage + "\n";
-                }
+                this.outClient = new DataInputStream(this.cs.getInputStream());
+                String newMessage = this.outClient.readUTF();
                 System.out.println(newMessage);
                 this.client = new Client("client",5555,"192.168.100.15",this.dispatcher,this.pair);
                 this.client.startClient(newMessage);

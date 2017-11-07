@@ -13,8 +13,8 @@ public class Connection {
     protected String serverMessage;
     protected ServerSocket ss;
     protected Socket cs;
-    protected DataOutputStream outServer, outClient;
-    protected DataInputStream test;
+    protected DataOutputStream outServer;
+    protected DataInputStream outClient;
 
     public Connection(String tipo, int PORT, String HOST) throws IOException{
         this.PORT = PORT;
