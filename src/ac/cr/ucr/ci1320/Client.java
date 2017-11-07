@@ -5,21 +5,43 @@ import javafx.util.Pair;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.Map;
 
 
 public class Client extends Connection {
 
     private Dispatcher dispatcher;
     private Pair<String,String> pair;
+    private Map<String, String> relation;
 
-    public  Client(String type,int port,String ip,Dispatcher dispatcher,Pair<String,String> pair) throws IOException {
-        super(type,port,ip);
+    public  Client(int port,String ip,Dispatcher dispatcher,Pair<String,String> pair, Map<String, String> relation) throws IOException {
+        super("client",port,ip);
         this.dispatcher = dispatcher;
         this.pair = pair;
+        this.relation = relation;
     }
 
-    boolean isLocal(){
-        return true;
+    boolean isLocal(String ip){
+        boolean isLocal;
+        String[] host = ip.split(".");
+        if(host[1].equalsIgnoreCase("165")){
+            isLocal = true;
+        }
+        else{
+            isLocal = false;
+        }
+        return isLocal;
+    }
+
+    public void startClient2() throws IOException {
+        try {
+            outServer = new DataOutputStream(cs.getOutputStream());
+                outServer.writeUTF("hola");
+            cs.close();
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     public void startClient(String message){
@@ -30,9 +52,9 @@ public class Client extends Connection {
             switch (action){
                 case 1:
                     IpData ipData = dispatcher.getData(arrayMessage[1]);
-                    if(ipData != null) { //si lo conozco
+                    if(ipData != null) { //no soy yo
                         answerMessage = pair.getKey() + "\n" + arrayMessage[0] + "\n" +
-                                '4' + "\n" + "" + "\n" + arrayMessage[4] + "\n" + arrayMessage[5];
+                                '5' + "\n" + "" + "\n" + arrayMessage[4] + "\n" + arrayMessage[5];
                     } else { //soy yo
                         answerMessage = pair.getKey() + "\n" + arrayMessage[0] + "\n" +
                                 '3' + "\n" + "" + "\n" + arrayMessage[4] + "\n" + arrayMessage[5];
@@ -48,17 +70,15 @@ public class Client extends Connection {
                         answerMessage = pair.getKey() + "\n" + arrayMessage[0] + "\n" +
                                 '5' + "\n" + "" + "\n" + arrayMessage[4] + "\n" + arrayMessage[5];
                     }
-
                     break;
                 default: //caso 0
-
-
+                    if(isLocal(arrayMessage[1])){
+                        answerMessage = answerMessage + "\n" + this.pair.getValue() + "\n" + this.relation.get(arrayMessage[0]) + "\n";
+                        //empaquetar fisico
+                    }
                     break;
             }
-            /*posibles soluciones:
-            1. new String(bla bla)
 
-             */
             this.outServer = new DataOutputStream(this.cs.getOutputStream());
             this.outServer.writeUTF(answerMessage);
             this.cs.close();

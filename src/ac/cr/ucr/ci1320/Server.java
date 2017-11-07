@@ -5,16 +5,21 @@ import ac.cr.ucr.ci1320.Dispatcher.Dispatcher;
 import javafx.util.Pair;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Server extends Connection {
     private Client client;
     private Dispatcher dispatcher;
     private Pair<String,String> pair;
+    private Map<String,String> relation;
 
-    public Server(int PORT, String HOST, Dispatcher dispatcher,Pair<String,String> pair) throws IOException {
+    public Server(int PORT, String HOST, Dispatcher dispatcher,Pair<String,String> pair, Map<String,String> relation) throws IOException {
         super("server", PORT, HOST);
         this.dispatcher = dispatcher;
         this.pair = pair;
+        this.relation = relation;
+
     }
 
     public void startServer() {
@@ -26,7 +31,7 @@ public class Server extends Connection {
                 this.outClient = new DataInputStream(this.cs.getInputStream());
                 String newMessage = this.outClient.readUTF();
                 System.out.println(newMessage);
-                this.client = new Client("client",5555,"192.168.100.15",this.dispatcher,this.pair);
+                this.client = new Client(5555,"192.168.100.15",this.dispatcher,this.pair, this.relation);
                 this.client.startClient(newMessage);
             }
         } catch (Exception e) {
