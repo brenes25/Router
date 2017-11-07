@@ -1,5 +1,6 @@
 package ac.cr.ucr.ci1320;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.lang.Thread;
@@ -22,11 +23,12 @@ public class Controller {
         this.myPhysicalAddress = "CRR4";
     }
 
-    public void startController(){
+    public void startController() throws IOException {
         //aca crea el hilo de escuchar
         //hace el join
-        Thread thread = new Thread(new ReadThread());
+        Thread thread = new Thread( new ReadThread(new Server(5555, "localhost")));
         thread.start();
+
     }
 
     private void write(String[] message){

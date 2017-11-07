@@ -2,12 +2,14 @@ package ac.cr.ucr.ci1320;
 
 public class ReadThread implements Runnable{
 
-    public ReadThread(){}
+    private Server server;
+    public ReadThread(Server server){
+        this.server = server;
+    }
 
     @Override
     public void run(){
-        System.out.println("HOLA");
-
+        server.startServer();
     }
 
 }
