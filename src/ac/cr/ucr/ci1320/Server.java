@@ -29,4 +29,18 @@ public class Server extends Connection {
             System.out.println(e.getMessage());
         }
     }
+
+    public String parsePabloArray(char[] c){
+        String msj = "";
+        msj = msj + String.valueOf((int) c[0])+"."+String.valueOf((int) c[1])+"."+String.valueOf((int) c[2])+"."+String.valueOf((int) c[3])+"\n"
+        + String.valueOf((int) c[4])+"."+String.valueOf((int) c[5])+"."+String.valueOf((int) c[6])+"."+String.valueOf((int) c[7])+"\n"
+        + String.valueOf((int) c[8])+"\n" //action
+        + String.valueOf((int) c[9])+"."+String.valueOf((int) c[10])+"."+String.valueOf((int) c[11])+"."+String.valueOf((int) c[12])+"\n"
+        + String.valueOf((int) c[13])+"\n"; //msj size
+        for(int i=14;i<+14+c[4];i++){
+            msj = msj + c[i];
+        }
+        msj = msj + "\n";
+        return msj;
+    }
 }

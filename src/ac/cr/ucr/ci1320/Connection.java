@@ -10,6 +10,7 @@ public class Connection {
     private int PORT;
     private String HOST;
     protected String serverMessage;
+    protected String[] newMsj;
     protected ServerSocket ss;
     protected Socket cs;
     protected DataOutputStream outServer, outClient;

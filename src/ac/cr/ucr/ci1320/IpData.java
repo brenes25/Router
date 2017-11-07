@@ -9,6 +9,13 @@ public class IpData {
     private String path;
     private int distance;
 
+    public IpData(String newRealIp, String newDestinyIp, String newPath, int newDistance){
+        this.realIp = newRealIp;
+        this.destinyIp = newDestinyIp;
+        this.path = newPath;
+        this.distance = newDistance;
+    }
+
     public String getRealIp() {
         return realIp;
     }
