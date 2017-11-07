@@ -1,4 +1,6 @@
-package com.company;
+package ac.cr.ucr.ci1320;
+
+import ac.cr.ucr.ci1320.Connection;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;

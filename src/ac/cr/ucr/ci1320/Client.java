@@ -1,13 +1,12 @@
-package com.company;
+package ac.cr.ucr.ci1320;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 
 
 public class Client extends Connection {
     public  Client() throws IOException {
-        super("client", 1234, "localhost");
+        super("client", 5555, "192.168.100.14");
     }
 
     public void startClient(){
