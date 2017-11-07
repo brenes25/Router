@@ -62,8 +62,9 @@ public class Client extends Connection {
                 case 2:
                     IpData ipData2 = dispatcher.getData(arrayMessage[1]);
                     if(ipData2 != null) { //si se la ruta
+                       String routing = ipData2.getDestinyIp() + "\n" +  ipData2.getFakePath() + "\n" + ipData2.getDistance();
                         answerMessage = pair.getKey() + "\n" + arrayMessage[0] + "\n" +
-                                '4' + "\n" + "" + "\n" + arrayMessage[4] + "\n" + arrayMessage[5];
+                                '4' + "\n" + routing.length() + "\n" + routing;
                     }
                     else{ //mensaje de error, no conozco la ruta al mae
                         answerMessage = pair.getKey() + "\n" + arrayMessage[0] + "\n" +
