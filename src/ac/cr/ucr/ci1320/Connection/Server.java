@@ -27,7 +27,7 @@ public class Server extends Connection {
     public void startServer() throws IOException{
         super.createSocket("server", 5555, "localhost");
         try {
-            while(true) {
+            while(true){
                 System.out.println("\nServidor  esperando...");
                 this.cs = this.ss.accept();
                 System.out.println("Cliente conectado en el servidor ");

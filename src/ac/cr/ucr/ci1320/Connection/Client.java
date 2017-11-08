@@ -24,7 +24,7 @@ public class Client extends Connection {
 
     public Client (String realIp, Map<String, IpData> ipTable){
         this.ipTable = ipTable;
-        this.dispatcherPort = 6666;
+        this.dispatcherPort = 9999;
         this.dispatcherRealIp = realIp;
     }
 
@@ -44,7 +44,6 @@ public class Client extends Connection {
     public void dispatcherClient(String myRealIp, Pair<String, String> address, int port) {
         String newMessage;
         newMessage = "1" + "\n " + address.getKey() + "\n" + myRealIp + "\n" + address.getValue() + "\n" + port;
-
         try {
             super.createSocket("client", this.dispatcherPort, this.dispatcherRealIp);
             this.outServer = new DataOutputStream(this.cs.getOutputStream());
@@ -55,8 +54,6 @@ public class Client extends Connection {
         }
     }
 
-
-
     public void startClient(String message){
         try {
             String[] arrayMessage = message.split("\n");
@@ -66,9 +63,14 @@ public class Client extends Connection {
             switch (action){
                 case 1:
                     if(ipData == null) {
+                        System.out.println("ENTRO A NULL CASO 1");
                         if (arrayMessage[3].contains("165")) {
+                            System.out.println("ENTRO A NUESTRA RED");
                             answerMessage = this.addressPair.getKey() + "\n" + arrayMessage[0] + "\n" +
                                     '3' + "\n" + this.addressPair.getKey() + "\n" + arrayMessage[4] + "\n" + arrayMessage[5];
+                        } else {
+                            answerMessage = arrayMessage[1] + "\n" + arrayMessage[0] + "\n" +
+                                    '5' + "\n" + arrayMessage[3] + "\n" + arrayMessage[4] + "\n" + arrayMessage[5];
                         }
                     }
                     break;
@@ -86,10 +88,12 @@ public class Client extends Connection {
                     }
                     break;
             }
-            if(ipData != null) {
+            if(ipData != null && action == 1){
+                super.createSocket("client",7575,"127.0.0.1"); //CAMBIAR A IP REAL
+            } else if(ipData != null) {
                 super.createSocket("client", ipData.getPort(), ipData.getRealIp());
             } else {
-                super.createSocket("client",8888,"127.0.0.1");
+                super.createSocket("client",7575,"127.0.0.1"); //CAMBIAR A IP REAL
             }
             this.outServer = new DataOutputStream(this.cs.getOutputStream());
             this.outServer.writeUTF(answerMessage);
@@ -99,19 +103,4 @@ public class Client extends Connection {
             System.out.println(e.getMessage());
         }
     }
-
-    public void testClient(){
-        try {
-            outServer = new DataOutputStream(cs.getOutputStream());
-            for (int i = 0; i < 2; i++) {
-                outServer.writeUTF("Este es el número"+(i+1)+"\nHOLA1\nHOLA2");
-            }
-            cs.close();
-        }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
-
-
 }

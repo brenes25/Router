@@ -35,7 +35,7 @@ public class Controller {
         dispatcherThread.start();
         Thread thread = new Thread(new ReadThread(new Server(new Pair<String,String>(this.myIpAddress,this.myPhysicalAddress), this.oneToOneRelation,this.ipTable)));
         thread.start();
-        this.conectToDisptacher("127.0.0.1", "127.0.0.1");
+        this.conectToDisptacher("127.0.0.1", "127.0.0.1"); //CAMBIAR
     }
 
     private void conectToDisptacher(String DispatcherRealIp, String myRealIp){
