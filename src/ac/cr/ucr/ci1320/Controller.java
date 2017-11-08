@@ -31,11 +31,11 @@ public class Controller {
     }
 
     public void startController() throws IOException {
-        this.conectToDisptacher("hzcscd", "jhsajhbsjasja");
         Thread dispatcherThread = new Thread(new DispatcherThread(new Server(this.ipTable)));
         dispatcherThread.start();
-        Thread thread = new Thread(new ReadThread(new Server(new Pair<String,String>(this.myIpAddress,this.myPhysicalAddress), this.oneToOneRelation)));
+        Thread thread = new Thread(new ReadThread(new Server(new Pair<String,String>(this.myIpAddress,this.myPhysicalAddress), this.oneToOneRelation,this.ipTable)));
         thread.start();
+        this.conectToDisptacher("127.0.0.1", "127.0.0.1");
     }
 
     private void conectToDisptacher(String DispatcherRealIp, String myRealIp){

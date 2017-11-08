@@ -4,6 +4,7 @@ import ac.cr.ucr.ci1320.IpData;
 import javafx.util.Pair;
 
 import java.io.*;
+import java.util.Iterator;
 import java.util.Map;
 
 public class Server extends Connection {
@@ -13,9 +14,10 @@ public class Server extends Connection {
     private Map<String, IpData> ipTable;
 
 
-    public Server(Pair<String,String> pair, Map<String,String> relation) throws IOException {
+    public Server(Pair<String,String> pair, Map<String,String> relation,Map<String,IpData> ipTable) throws IOException {
         this.pair = pair;
         this.relation = relation;
+        this.ipTable = ipTable;
     }
 
     public Server (Map<String, IpData> ipTable){
@@ -31,9 +33,9 @@ public class Server extends Connection {
                 System.out.println("Cliente conectado en el servidor ");
                 this.outClient = new DataInputStream(this.cs.getInputStream());
                 String newMessage = this.outClient.readUTF();
-                System.out.println(newMessage);
-                this.client = new Client(this.pair, this.relation);
-                //this.client.startClient(newMessage);
+                //System.out.println(newMessage);
+                this.client = new Client(this.pair, this.relation,this.ipTable);
+                this.client.startClient(newMessage);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -50,10 +52,21 @@ public class Server extends Connection {
                 this.outClient = new DataInputStream(this.cs.getInputStream());
                 String newMessage = this.outClient.readUTF();
                 this.fillTable(newMessage);
+                this.printTable();
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public void printTable(){
+        Iterator iterator = this.ipTable.entrySet().iterator();
+        while(iterator.hasNext()){
+            Map.Entry pair = (Map.Entry) iterator.next();
+            IpData ipData = (IpData) pair.getValue();
+            System.out.println(pair.getKey()+"--"+ipData.getFakeIp()+"--"+ipData.getRealIp()+"--"
+                    +ipData.getFakePath()+"--"+ipData.getDistance()+"--"+ipData.getPort());
+        } //ya aca tiene el campo de mensaje lleno ak7
     }
 
     public String parsePabloArray(char[] c){
