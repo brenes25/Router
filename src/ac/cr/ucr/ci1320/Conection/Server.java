@@ -1,21 +1,25 @@
-package ac.cr.ucr.ci1320;
+package ac.cr.ucr.ci1320.Conection;
 
-import ac.cr.ucr.ci1320.Connection;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+import ac.cr.ucr.ci1320.IpData;
 import javafx.util.Pair;
 
 import java.io.*;
-import java.util.HashMap;
 import java.util.Map;
 
 public class Server extends Connection {
     private Client client;
     private Pair<String,String> pair;
     private Map<String,String> relation;
+    private Map<String, IpData> ipTable;
+
 
     public Server(Pair<String,String> pair, Map<String,String> relation) throws IOException {
         this.pair = pair;
         this.relation = relation;
+    }
+
+    public Server (Map<String, IpData> ipTable){
+        this.ipTable = ipTable;
     }
 
     public void startServer() throws IOException{
@@ -36,6 +40,22 @@ public class Server extends Connection {
         }
     }
 
+    public void startServerDispatcher() throws IOException{
+        super.createSocket("server", 4444, "localhost");
+        try {
+            while(true) {
+                System.out.println("\nServidor  esperando...");
+                this.cs = this.ss.accept();
+                System.out.println("Cliente conectado en el servidor ");
+                this.outClient = new DataInputStream(this.cs.getInputStream());
+                String newMessage = this.outClient.readUTF();
+                this.fillTable(newMessage);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public String parsePabloArray(char[] c){
         String msj;
         msj = String.valueOf((int) c[0])+"."+String.valueOf((int) c[1])+"."+String.valueOf((int) c[2])+"."+String.valueOf((int) c[3])+"\n"
@@ -48,5 +68,13 @@ public class Server extends Connection {
         }
         msj = msj + "\n";
         return msj;
+    }
+
+    public void fillTable(String message){
+        String[] entries = message.split("\n");
+        for(int i = 0; i < entries.length;  i++){
+            String[] data = entries[i].split(",");
+            ipTable.put(data[0], new IpData(data[1], data[2],data[3], Integer.parseInt(data[4]), Integer.parseInt(data[5])));
+        }
     }
 }

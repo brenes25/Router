@@ -1,4 +1,4 @@
-package ac.cr.ucr.ci1320;
+package ac.cr.ucr.ci1320.Conection;
 import javafx.util.Pair;
 
 import java.io.DataOutputStream;
@@ -52,16 +52,7 @@ public class Client extends Connection {
         }
     }
 
-    public void startClient2() throws IOException {
-        try {
-            outServer = new DataOutputStream(cs.getOutputStream());
-                outServer.writeUTF("hola");
-            cs.close();
-        }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
+
 
  /*   public void startClient(String message){
         try {

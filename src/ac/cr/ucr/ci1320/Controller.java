@@ -1,4 +1,8 @@
 package ac.cr.ucr.ci1320;
+import ac.cr.ucr.ci1320.Conection.Client;
+import ac.cr.ucr.ci1320.Conection.Server;
+import ac.cr.ucr.ci1320.Threads.DispatcherThread;
+import ac.cr.ucr.ci1320.Threads.ReadThread;
 import javafx.util.Pair;
 
 import java.io.IOException;
@@ -27,6 +31,8 @@ public class Controller {
     }
 
     public void startController() throws IOException {
+        this.conectToDisptacher("hzcscd", "jhsajhbsjasja");
+        Thread dispatcherThread = new Thread(new DispatcherThread(new Server(this.ipTable)));
         Thread thread = new Thread(new ReadThread(new Server(new Pair<String,String>(this.myIpAddress,this.myPhysicalAddress), this.oneToOneRelation)));
         thread.start();
     }
@@ -34,6 +40,6 @@ public class Controller {
     private void conectToDisptacher(String DispatcherRealIp, String myRealIp){
         Client client = new Client(DispatcherRealIp);
         Pair<String, String> address = new Pair<>(this.myIpAddress, this.myPhysicalAddress);
-        client.dispatcherClient(myRealIp,address, 5555);
+        client.dispatcherClient(myRealIp,address, 4444);
     }
 }

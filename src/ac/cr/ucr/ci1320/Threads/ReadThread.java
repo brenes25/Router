@@ -1,7 +1,6 @@
-package ac.cr.ucr.ci1320;
+package ac.cr.ucr.ci1320.Threads;
 
-import java.io.IOException;
-import java.security.spec.ECField;
+import ac.cr.ucr.ci1320.Conection.Server;
 
 public class ReadThread implements Runnable{
 
