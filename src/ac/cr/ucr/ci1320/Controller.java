@@ -33,6 +33,7 @@ public class Controller {
     public void startController() throws IOException {
         this.conectToDisptacher("hzcscd", "jhsajhbsjasja");
         Thread dispatcherThread = new Thread(new DispatcherThread(new Server(this.ipTable)));
+        dispatcherThread.start();
         Thread thread = new Thread(new ReadThread(new Server(new Pair<String,String>(this.myIpAddress,this.myPhysicalAddress), this.oneToOneRelation)));
         thread.start();
     }
