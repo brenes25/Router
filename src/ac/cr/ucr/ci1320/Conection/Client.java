@@ -1,4 +1,5 @@
 package ac.cr.ucr.ci1320.Conection;
+import ac.cr.ucr.ci1320.IpData;
 import javafx.util.Pair;
 
 import java.io.DataOutputStream;
@@ -8,19 +9,20 @@ import java.util.Map;
 
 public class Client extends Connection {
 
-
-    private Pair<String,String> pair;
+    private Pair<String,String> addressPair;
     private Map<String, String> relation;
     private int dispatcherPort;
     private String dispatcherRealIp;
+    private Map<String, IpData> ipTable;
 
     public  Client(Pair<String,String> pair, Map<String, String> relation) throws IOException {
-        this.pair = pair;
+        this.addressPair = pair;
         this.relation = relation;
 
     }
 
-    public Client (String realIp){
+    public Client (String realIp, Map<String, IpData> ipTable){
+        this.ipTable = ipTable;
         this.dispatcherPort = 6666;
         this.dispatcherRealIp = realIp;
     }
@@ -54,37 +56,29 @@ public class Client extends Connection {
 
 
 
- /*   public void startClient(String message){
+    public void startClient(String message){
         try {
             String[] arrayMessage = message.split("\n");
             int action = Integer.parseInt(arrayMessage[2]);
             String answerMessage = "";
+            IpData ipData = this.ipTable.get(arrayMessage[3]);
             switch (action){
                 case 1:
-                    //llamar al dispatcher
-                    if(ipData != null) { //no soy yo
-                        answerMessage = pair.getKey() + "\n" + arrayMessage[0] + "\n" +
-                                '5' + "\n" + "" + "\n" + arrayMessage[4] + "\n" + arrayMessage[5];
-                    } else { //soy yo
-                        answerMessage = pair.getKey() + "\n" + arrayMessage[0] + "\n" +
+                    if(ipData == null ){
+                        answerMessage = this.addressPair.getKey() + "\n" + arrayMessage[0] + "\n" +
                                 '3' + "\n" + "" + "\n" + arrayMessage[4] + "\n" + arrayMessage[5];
                     }
                     break;
                 case 2:
-                    //llamar al dispatcher
-                    if(ipData2 != null) { //si se la ruta
-                        String routing = ipData2.getDestinyIp() + "\n" +  ipData2.getFakePath() + "\n" + ipData2.getDistance();
-                        answerMessage = pair.getKey() + "\n" + arrayMessage[0] + "\n" +
-                                '4' + "\n" + routing.length() + "\n" + routing;
-                    }
-                    else{ //mensaje de error, no conozco la ruta al mae
-                        answerMessage = pair.getKey() + "\n" + arrayMessage[0] + "\n" +
-                                '5' + "\n" + "" + "\n" + arrayMessage[4] + "\n" + arrayMessage[5];
+                    if(ipData != null) { //si se la ruta
+                        String routing = ipData.getFakeIp() + "\n" +  ipData.getFakePath() + "\n" + ipData.getDistance();
+                        answerMessage = this.addressPair.getKey() + "\n" + arrayMessage[0] + "\n" +
+                                '4' + "\n" + arrayMessage[4] + "\n" + arrayMessage[5] + routing.length() + "\n" + routing;
                     }
                     break;
                 default: //caso 0
                     if(isLocal(arrayMessage[1])){
-                        answerMessage = answerMessage + "\n" + this.pair.getValue() + "\n" + this.relation.get(arrayMessage[0]) + "\n";
+                        answerMessage = answerMessage + "\n" + this.addressPair.getValue() + "\n" + this.relation.get(arrayMessage[0]) + "\n";
                         //empaquetar fisico
                     }
                     break;
@@ -98,7 +92,7 @@ public class Client extends Connection {
         catch (Exception e){
             System.out.println(e.getMessage());
         }
-    }*/
+    }
 
     public void testClient(){
         try {

@@ -5,14 +5,14 @@ package ac.cr.ucr.ci1320;
  */
 public class IpData {
     private String realIp;
-    private String destinyIp;
+    private String fakeIp;
     private String fakePath;
     private int distance;
     private int port;
 
     public IpData(String realIp, String destinyIp, String fakePath, int distance,int port){
         this.realIp = realIp;
-        this.destinyIp = destinyIp;
+        this.fakeIp = destinyIp;
         this.fakePath = fakePath;
         this.distance = distance;
         this.port = port;
@@ -22,8 +22,8 @@ public class IpData {
         return this.realIp;
     }
 
-    public String getDestinyIp() {
-        return this.destinyIp;
+    public String getFakeIp() {
+        return this.fakeIp;
     }
 
     public String getFakePath() {

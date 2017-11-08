@@ -38,7 +38,7 @@ public class Controller {
     }
 
     private void conectToDisptacher(String DispatcherRealIp, String myRealIp){
-        Client client = new Client(DispatcherRealIp);
+        Client client = new Client(DispatcherRealIp, this.ipTable);
         Pair<String, String> address = new Pair<>(this.myIpAddress, this.myPhysicalAddress);
         client.dispatcherClient(myRealIp,address, 4444);
     }
