@@ -1,7 +1,6 @@
 package ac.cr.ucr.ci1320;
 
 import ac.cr.ucr.ci1320.Connection;
-import ac.cr.ucr.ci1320.Dispatcher.Dispatcher;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.util.Pair;
 
@@ -11,12 +10,10 @@ import java.util.Map;
 
 public class Server extends Connection {
     private Client client;
-    private Dispatcher dispatcher;
     private Pair<String,String> pair;
     private Map<String,String> relation;
 
-    public Server(Dispatcher dispatcher,Pair<String,String> pair, Map<String,String> relation) throws IOException {
-        this.dispatcher = dispatcher;
+    public Server(Pair<String,String> pair, Map<String,String> relation) throws IOException {
         this.pair = pair;
         this.relation = relation;
     }
@@ -31,8 +28,8 @@ public class Server extends Connection {
                 this.outClient = new DataInputStream(this.cs.getInputStream());
                 String newMessage = this.outClient.readUTF();
                 System.out.println(newMessage);
-                this.client = new Client(this.dispatcher,this.pair, this.relation);
-                this.client.startClient(newMessage);
+                this.client = new Client(this.pair, this.relation);
+                //this.client.startClient(newMessage);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());

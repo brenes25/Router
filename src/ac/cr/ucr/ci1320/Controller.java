@@ -1,6 +1,4 @@
 package ac.cr.ucr.ci1320;
-
-import ac.cr.ucr.ci1320.Dispatcher.Dispatcher;
 import javafx.util.Pair;
 
 import java.io.IOException;
@@ -15,7 +13,6 @@ public class Controller {
     private Map<String,String> oneToOneRelation;
     private String myIpAddress;
     private String myPhysicalAddress;
-    private Dispatcher dispatcher;
 
     public Controller(){
         this.oneToOneRelation = new HashMap<>();
@@ -25,11 +22,16 @@ public class Controller {
         //el propio se tiene como atributo
         this.myIpAddress = "165.8.25.6";
         this.myPhysicalAddress = "CRR4";
-        this.dispatcher = new Dispatcher();
     }
 
     public void startController() throws IOException {
-        Thread thread = new Thread(new ReadThread(new Server(dispatcher, new Pair<String,String>(this.myIpAddress,this.myPhysicalAddress), this.oneToOneRelation)));
+        Thread thread = new Thread(new ReadThread(new Server(new Pair<String,String>(this.myIpAddress,this.myPhysicalAddress), this.oneToOneRelation)));
         thread.start();
+    }
+
+    private void conectToDisptacher(String DispatcherRealIp, String myRealIp){
+        Client client = new Client(DispatcherRealIp);
+        Pair<String, String> address = new Pair<>(this.myIpAddress, this.myPhysicalAddress);
+        client.dispatcherClient(myRealIp,address, 5555);
     }
 }
