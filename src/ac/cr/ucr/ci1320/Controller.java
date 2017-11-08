@@ -13,6 +13,7 @@ public class Controller {
     private Map<String,String> oneToOneRelation;
     private String myIpAddress;
     private String myPhysicalAddress;
+    private Map<String, IpData> ipTable;
 
     public Controller(){
         this.oneToOneRelation = new HashMap<>();
@@ -22,6 +23,7 @@ public class Controller {
         //el propio se tiene como atributo
         this.myIpAddress = "165.8.25.6";
         this.myPhysicalAddress = "CRR4";
+        this.ipTable = new HashMap<>();
     }
 
     public void startController() throws IOException {
