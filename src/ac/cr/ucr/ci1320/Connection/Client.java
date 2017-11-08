@@ -63,16 +63,10 @@ public class Client extends Connection {
             int action = Integer.parseInt(arrayMessage[2]);
             String answerMessage = "";
             IpData ipData = this.ipTable.get(arrayMessage[3]);
-            System.out.println("iprelacionada a la accion era"+arrayMessage[3]);
-            if(ipData == null){
-                System.out.println("IPData nulo");
-            }
             switch (action){
                 case 1:
                     if(ipData == null) {
-                        System.out.println("HOLA ME METI EN ACCION 1 EN NULL");
                         if (arrayMessage[3].contains("165")) {
-                            System.out.println("HOLA SOY YO");
                             answerMessage = this.addressPair.getKey() + "\n" + arrayMessage[0] + "\n" +
                                     '3' + "\n" + this.addressPair.getKey() + "\n" + arrayMessage[4] + "\n" + arrayMessage[5];
                         }
@@ -92,8 +86,6 @@ public class Client extends Connection {
                     }
                     break;
             }
-            System.out.println("answerMessage"+answerMessage);
-            //System.out.println("socket info"+ipData.getPort()+"--"+ipData.getRealIp());
             if(ipData != null) {
                 super.createSocket("client", ipData.getPort(), ipData.getRealIp());
             } else {
