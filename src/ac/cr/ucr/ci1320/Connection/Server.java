@@ -1,4 +1,4 @@
-package ac.cr.ucr.ci1320.Conection;
+package ac.cr.ucr.ci1320.Connection;
 
 import ac.cr.ucr.ci1320.IpData;
 import javafx.util.Pair;

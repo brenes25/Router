@@ -1,6 +1,6 @@
 package ac.cr.ucr.ci1320;
 
-import ac.cr.ucr.ci1320.Conection.Client;
+import ac.cr.ucr.ci1320.Connection.Client;
 
 import java.io.IOException;
 

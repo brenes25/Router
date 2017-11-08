@@ -1,6 +1,6 @@
 package ac.cr.ucr.ci1320.Threads;
 
-import ac.cr.ucr.ci1320.Conection.Server;
+import ac.cr.ucr.ci1320.Connection.Server;
 
 public class DispatcherThread implements Runnable {
     private Server server;

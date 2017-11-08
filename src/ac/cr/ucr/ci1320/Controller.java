@@ -1,6 +1,6 @@
 package ac.cr.ucr.ci1320;
-import ac.cr.ucr.ci1320.Conection.Client;
-import ac.cr.ucr.ci1320.Conection.Server;
+import ac.cr.ucr.ci1320.Connection.Client;
+import ac.cr.ucr.ci1320.Connection.Server;
 import ac.cr.ucr.ci1320.Threads.DispatcherThread;
 import ac.cr.ucr.ci1320.Threads.ReadThread;
 import javafx.util.Pair;

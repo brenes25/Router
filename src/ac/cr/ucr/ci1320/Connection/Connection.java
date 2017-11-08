@@ -1,4 +1,4 @@
-package ac.cr.ucr.ci1320.Conection;
+package ac.cr.ucr.ci1320.Connection;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
