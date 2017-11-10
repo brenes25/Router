@@ -74,13 +74,12 @@ public class Client extends Connection {
                         }
                     }
                     break;
-                case 2: //formato del mensaje: Fuenteip + nodoIp + accion + destinoIp + tamano + mensaje
+                case 2:
                     if(ipData != null) { //si se la ruta
                         String routing = ipData.getFakeIp() + "\n" +  ipData.getFakePath() + "\n" + ipData.getDistance();
                         answerMessage = this.addressPair.getKey() + "\n" + arrayMessage[0] + "\n" +
-                                '4' + "\n" +arrayMessage[3]+ "\n" + routing.length() + "\n" + routing;
+                                '4' + "\n" + arrayMessage[3] +"\n" + arrayMessage[4] + "\n" + arrayMessage[5] +"\n" + routing.length() + "\n" + routing;
                     }
-
                     break;
                 default: //caso 0
                     if(isLocal(arrayMessage[1])){

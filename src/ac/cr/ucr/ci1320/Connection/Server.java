@@ -4,6 +4,7 @@ import ac.cr.ucr.ci1320.IpData;
 import javafx.util.Pair;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -33,7 +34,7 @@ public class Server extends Connection {
                 System.out.println("Cliente conectado en el servidor ");
                 this.outClient = new DataInputStream(this.cs.getInputStream());
                 String newMessage = this.outClient.readUTF();
-                System.out.println("SATANAS"+newMessage + "YA SE ACABO ESTA MIERDA");
+                System.out.println("Se recibio: "+ Arrays.toString(newMessage.split("\n"))+"\n");
                 this.client = new Client(this.pair, this.relation,this.ipTable);
                 this.client.startClient(newMessage);
             }

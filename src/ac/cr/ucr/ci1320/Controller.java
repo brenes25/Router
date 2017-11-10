@@ -25,7 +25,7 @@ public class Controller {
         this.oneToOneRelation.put("165.8.2.0","CRR2"); //mariana
         this.oneToOneRelation.put("165.8.48.2","CRR3"); //alonso
         //el propio se tiene como atributo
-        this.myIpAddress = "165.8.25.6";
+        this.myIpAddress = "165.8.6.25";
         this.myPhysicalAddress = "CRR4";
         this.ipTable = new HashMap<>();
     }
