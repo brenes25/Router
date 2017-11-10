@@ -80,6 +80,7 @@ public class Client extends Connection {
                         answerMessage = this.addressPair.getKey() + "\n" + arrayMessage[0] + "\n" +
                                 '4' + "\n" +arrayMessage[3]+ "\n" + routing.length() + "\n" + routing;
                     }
+
                     break;
                 default: //caso 0
                     if(isLocal(arrayMessage[1])){

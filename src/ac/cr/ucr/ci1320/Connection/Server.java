@@ -57,6 +57,7 @@ public class Server extends Connection {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
     }
 
     public void printTable(){
