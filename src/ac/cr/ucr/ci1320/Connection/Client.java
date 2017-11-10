@@ -74,11 +74,11 @@ public class Client extends Connection {
                         }
                     }
                     break;
-                case 2:
+                case 2: //formato del mensaje: Fuenteip + nodoIp + accion + destinoIp + tamano + mensaje
                     if(ipData != null) { //si se la ruta
                         String routing = ipData.getFakeIp() + "\n" +  ipData.getFakePath() + "\n" + ipData.getDistance();
                         answerMessage = this.addressPair.getKey() + "\n" + arrayMessage[0] + "\n" +
-                                '4' + "\n" + arrayMessage[4] + "\n" + arrayMessage[5] + routing.length() + "\n" + routing;
+                                '4' + "\n" +arrayMessage[3]+ "\n" + routing.length() + "\n" + routing;
                     }
                     break;
                 default: //caso 0
@@ -91,7 +91,8 @@ public class Client extends Connection {
             if(ipData != null && action == 1){
                 super.createSocket("client",7575,"127.0.0.1"); //CAMBIAR A IP REAL
             } else if(ipData != null) {
-                super.createSocket("client", ipData.getPort(), ipData.getRealIp());
+                //super.createSocket("client", ipData.getPort(), ipData.getRealIp()); puerto = 0; real ip = ?
+                super.createSocket("client",7575,"127.0.0.1");
             } else {
                 super.createSocket("client",7575,"127.0.0.1"); //CAMBIAR A IP REAL
             }

@@ -33,7 +33,7 @@ public class Server extends Connection {
                 System.out.println("Cliente conectado en el servidor ");
                 this.outClient = new DataInputStream(this.cs.getInputStream());
                 String newMessage = this.outClient.readUTF();
-                //System.out.println(newMessage);
+                System.out.println("SATANAS"+newMessage + "YA SE ACABO ESTA MIERDA");
                 this.client = new Client(this.pair, this.relation,this.ipTable);
                 this.client.startClient(newMessage);
             }
