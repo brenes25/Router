@@ -7,6 +7,17 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 
+/**
+ * Universidad de Costa Rica
+ * Facultad de Ingeniería
+ * Escuela de Ciencias de la Computación e Informática
+ * Profesora: Gabriela Barrantes
+ * Autores:
+ * Abellán Jiménez Mariana B50031
+ * Brenes Solano Silvia B41133
+ * Cubero Sánchez Josué B42190
+ * Garita Centeno Alonso B42791
+ */
 
 public class Client extends Connection {
 
@@ -46,6 +57,7 @@ public class Client extends Connection {
         newMessage = "1" + "\n " + address.getKey() + "\n" + myRealIp + "\n" + address.getValue() + "\n" + port;
         try {
             super.createSocket("client", this.dispatcherPort, this.dispatcherRealIp);
+            System.out.println("conect to diaspatcher");
             this.outServer = new DataOutputStream(this.cs.getOutputStream());
             this.outServer.writeUTF(newMessage);
             this.cs.close();
@@ -82,19 +94,19 @@ public class Client extends Connection {
                     }
                     break;
                 default: //caso 0
-                    if(isLocal(arrayMessage[1])){
-                        answerMessage = this.addressPair.getValue() + "\n" + this.relation.get(arrayMessage[0]) + "\n";
-                        //empaquetar fisico
-                    }
+                    System.out.println("comunicacion con pablo");
+                    answerMessage= this.addressPair.getKey() + "\n" + "12.0.0.7" + arrayMessage[2] +
+                        "\n" + "" + arrayMessage[4] + "\n"  + arrayMessage[5];
+                        super.createSocket("client",7777,"localhost");
                     break;
             }
             if(ipData != null && action == 1){
-                super.createSocket("client",7575,"127.0.0.1"); //CAMBIAR A IP REAL
+                super.createSocket("client",7575,"10.1.130.30"); //CAMBIAR A IP REAL
             } else if(ipData != null) {
-                //super.createSocket("client", ipData.getPort(), ipData.getRealIp()); puerto = 0; real ip = ?
-                super.createSocket("client",7575,"127.0.0.1");
+                //super.createSocket("client", ipData.getPort(), ipData.getRealIp());
+                super.createSocket("client",7575,"10.1.130.30");
             } else {
-                super.createSocket("client",7575,"127.0.0.1"); //CAMBIAR A IP REAL
+                super.createSocket("client",7575,"10.1.130.30"); //CAMBIAR A IP REAL
             }
             this.outServer = new DataOutputStream(this.cs.getOutputStream());
             this.outServer.writeUTF(answerMessage);

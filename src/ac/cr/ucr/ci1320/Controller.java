@@ -25,7 +25,7 @@ public class Controller {
         this.oneToOneRelation.put("165.8.2.0","CRR2"); //mariana
         this.oneToOneRelation.put("165.8.48.2","CRR3"); //alonso
         //el propio se tiene como atributo
-        this.myIpAddress = "165.8.6.25";
+        this.myIpAddress = "165.8.25.6";
         this.myPhysicalAddress = "CRR4";
         this.ipTable = new HashMap<>();
     }
@@ -35,11 +35,13 @@ public class Controller {
         dispatcherThread.start();
         Thread thread = new Thread(new ReadThread(new Server(new Pair<String,String>(this.myIpAddress,this.myPhysicalAddress), this.oneToOneRelation,this.ipTable)));
         thread.start();
-        this.conectToDisptacher("127.0.0.1", "127.0.0.1"); //CAMBIAR
+        this.conectToDisptacher("10.1.130.222", "10.1.130.141"); //CAMBIAR
     }
 
     private void conectToDisptacher(String DispatcherRealIp, String myRealIp){
+
         Client client = new Client(DispatcherRealIp, this.ipTable);
+
         Pair<String, String> address = new Pair<>(this.myIpAddress, this.myPhysicalAddress);
         client.dispatcherClient(myRealIp,address, 4444);
     }
